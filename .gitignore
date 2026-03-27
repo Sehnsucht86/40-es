@@ -1,0 +1,7 @@
+node_modules/
+.claude/
+package.json
+package-lock.json
+process-photos.mjs
+*.jpg
+!feldolgozott/*.jpg

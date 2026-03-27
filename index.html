@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andi & Gabi - 40!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #e8e0d4;
+  --bg-warm: #ddd5c8;
+  --terra: #c45a2d;
+  --terra-light: #d4794f;
+  --terra-dark: #a04520;
+  --text: #3a3532;
+  --text-light: #6b6460;
+  --card-bg: #f8f3eb;
+  --card-edge: #ece4d6;
+  --shadow: rgba(80, 40, 20, 0.18);
+  --tape: rgba(222, 205, 160, 0.55);
+  --tape-shine: rgba(255, 248, 230, 0.3);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Lora', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ===== PAPER TEXTURE OVERLAY ===== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ===== FILM GRAIN ANIMATION ===== */
+body::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.06;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  animation: grain 0.5s steps(1) infinite;
+}
+
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -3%); }
+  20% { transform: translate(3%, 1%); }
+  30% { transform: translate(-1%, 3%); }
+  40% { transform: translate(2%, -2%); }
+  50% { transform: translate(-3%, 1%); }
+  60% { transform: translate(1%, -1%); }
+  70% { transform: translate(-2%, 2%); }
+  80% { transform: translate(3%, -3%); }
+  90% { transform: translate(-1%, 2%); }
+  100% { transform: translate(2%, -1%); }
+}
+
+/* ===== WARM EDGE VIGNETTE ON PAGE ===== */
+.page-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9997;
+  background: radial-gradient(ellipse at center, transparent 60%, rgba(120, 70, 30, 0.12) 100%);
+}
+
+/* ===== HERO ===== */
+.hero {
+  text-align: center;
+  padding: 3.5rem 1.5rem 2rem;
+  position: relative;
+}
+
+.hero::after {
+  content: '';
+  display: block;
+  width: 180px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--terra), transparent);
+  margin: 1.5rem auto 0;
+}
+
+.hero-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  color: var(--terra);
+  line-height: 1.1;
+  margin-bottom: 0.3rem;
+  text-shadow: 1px 2px 4px rgba(196, 90, 45, 0.2), 0 0 40px rgba(196, 90, 45, 0.08);
+}
+
+.hero-40 {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(4rem, 12vw, 8rem);
+  color: var(--terra);
+  line-height: 1;
+  margin: 0.2rem 0;
+  opacity: 0.85;
+  transform: rotate(-3deg);
+  display: inline-block;
+  text-shadow: 2px 3px 6px rgba(160, 69, 32, 0.2);
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--text-light);
+  font-style: italic;
+  margin-top: 0.5rem;
+  line-height: 1.6;
+}
+
+.hero-date {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  color: var(--terra-dark);
+  font-weight: 600;
+  margin-top: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ===== LIFE COUNTER ===== */
+.life-counter {
+  margin-top: 1.5rem;
+  padding: 1.2rem 1rem;
+  background: rgba(196, 90, 45, 0.06);
+  border-top: 1px solid rgba(196, 90, 45, 0.12);
+  border-bottom: 1px solid rgba(196, 90, 45, 0.12);
+  border-radius: 4px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.life-counter-label {
+  font-style: italic;
+  color: var(--terra-dark);
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  margin-bottom: 0.8rem;
+}
+
+.life-counter-grid {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.counter-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 55px;
+}
+
+.counter-num {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 700;
+  color: var(--terra);
+  line-height: 1.1;
+}
+
+.counter-unit {
+  font-size: 0.7rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 0.15rem;
+}
+
+.life-counter-total {
+  margin-top: 0.7rem;
+  font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+  color: var(--text-light);
+  font-style: italic;
+}
+
+/* ===== SCALLOP DIVIDER ===== */
+.scallop-divider {
+  width: 100%;
+  height: 24px;
+  margin: 0.5rem 0 1rem;
+  background: radial-gradient(circle at 50% 0, var(--bg) 12px, transparent 12px) repeat-x;
+  background-size: 24px 24px;
+  position: relative;
+}
+.scallop-divider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--terra), transparent);
+  opacity: 0.25;
+}
+
+/* ===== CONTROLS ===== */
+.controls {
+  text-align: center;
+  padding: 0.5rem 1rem 1.5rem;
+}
+
+.btn-slideshow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.8rem;
+  background: var(--terra);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-family: 'Lora', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 3px 12px rgba(196, 90, 45, 0.3);
+}
+
+.btn-slideshow:hover {
+  background: var(--terra-dark);
+  transform: translateY(-1px);
+}
+
+.btn-slideshow svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* ===== GALLERY ===== */
+.gallery {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2.5rem;
+}
+
+@media (max-width: 600px) {
+  .gallery {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 0 1rem 2rem;
+  }
+}
+
+/* ===== POLAROID CARD ===== */
+.polaroid {
+  background: var(--card-bg);
+  background-image:
+    linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 40%, transparent 60%, rgba(200,180,150,0.08) 100%);
+  padding: 14px 14px 48px;
+  border-radius: 2px;
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.08),
+    0 4px 12px var(--shadow),
+    0 8px 24px rgba(80, 40, 20, 0.06),
+    inset 0 0 0 1px rgba(180, 160, 130, 0.15);
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(.25,.8,.25,1), box-shadow 0.5s;
+  transform-origin: center bottom;
+  position: relative;
+}
+
+/* Yellowed edges */
+.polaroid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background:
+    linear-gradient(to right, rgba(180, 150, 100, 0.08), transparent 15%, transparent 85%, rgba(180, 150, 100, 0.08)),
+    linear-gradient(to bottom, rgba(180, 150, 100, 0.05), transparent 10%, transparent 90%, rgba(180, 150, 100, 0.1));
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Tape decoration */
+.polaroid::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 22px;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(var(--tape-rotation, 0deg));
+  background: linear-gradient(
+    180deg,
+    var(--tape-shine) 0%,
+    var(--tape) 30%,
+    var(--tape) 70%,
+    rgba(200, 180, 140, 0.35) 100%
+  );
+  border-radius: 1px;
+  z-index: 3;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  opacity: 0.85;
+}
+
+/* Tape variations per card position */
+.polaroid:nth-child(3n+1)::after {
+  left: 30%;
+  --tape-rotation: -4deg;
+  width: 55px;
+}
+.polaroid:nth-child(3n+2)::after {
+  left: 55%;
+  --tape-rotation: 3deg;
+  width: 65px;
+}
+.polaroid:nth-child(5n)::after {
+  top: -6px;
+  left: 45%;
+  --tape-rotation: -2deg;
+  width: 70px;
+}
+/* Some cards get corner tape instead */
+.polaroid:nth-child(4n+3)::after {
+  top: -4px;
+  left: auto;
+  right: -6px;
+  transform: rotate(38deg);
+  width: 50px;
+  height: 20px;
+}
+
+.polaroid:hover {
+  transform: scale(1.04) rotate(0deg) !important;
+  box-shadow:
+    0 12px 30px var(--shadow),
+    0 16px 50px rgba(80, 40, 20, 0.1);
+  z-index: 2;
+}
+
+/* Photo styling with vintage look */
+.polaroid img {
+  width: 100%;
+  display: block;
+  border-radius: 1px;
+  filter: sepia(12%) saturate(90%) contrast(97%) brightness(98%);
+  transition: filter 0.4s;
+  position: relative;
+}
+
+/* Photo vignette + warm light leak */
+.photo-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.photo-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 55%, rgba(60, 30, 10, 0.18) 100%),
+    linear-gradient(135deg, rgba(255, 200, 100, 0.06) 0%, transparent 50%);
+  z-index: 1;
+}
+
+.polaroid:hover img {
+  filter: sepia(5%) saturate(105%) contrast(100%) brightness(100%);
+}
+
+/* ===== LIGHTBOX ===== */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(25, 20, 16, 0.96);
+  backdrop-filter: blur(10px);
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+
+.lightbox.active {
+  display: flex;
+  opacity: 1;
+}
+
+/* Lightbox film border */
+.lightbox::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 50%, rgba(80, 40, 10, 0.25) 100%);
+  z-index: 1;
+}
+
+.lightbox-img {
+  max-width: 92vw;
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: 2px;
+  box-shadow: 0 10px 50px rgba(0,0,0,0.6);
+  transition: opacity 0.4s;
+  filter: sepia(6%) saturate(95%) contrast(98%);
+  position: relative;
+  z-index: 2;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: rgba(255,240,220,0.7);
+  font-size: 2.5rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  z-index: 10001;
+  line-height: 1;
+}
+
+.lightbox-close:hover { opacity: 1; }
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,240,220,0.08);
+  border: 1px solid rgba(255,240,220,0.1);
+  color: rgba(255,240,220,0.7);
+  font-size: 2.5rem;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  opacity: 0.6;
+  transition: opacity 0.2s, background 0.2s;
+  z-index: 10001;
+}
+
+.lightbox-nav:hover {
+  opacity: 1;
+  background: rgba(255,240,220,0.15);
+}
+
+.lightbox-prev { left: 1rem; }
+.lightbox-next { right: 1rem; }
+
+.lightbox-counter {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,240,220,0.5);
+  font-family: 'Lora', serif;
+  font-size: 0.95rem;
+  z-index: 10001;
+}
+
+/* ===== SLIDESHOW ===== */
+.slideshow-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  background: #1a1510;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.slideshow-overlay.active {
+  display: flex;
+}
+
+/* Warm vignette on slideshow */
+.slideshow-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(60, 30, 5, 0.35) 100%);
+  z-index: 1;
+}
+
+.slideshow-img {
+  max-width: 94vw;
+  max-height: 90vh;
+  object-fit: contain;
+  transition: opacity 0.8s ease-in-out;
+  filter: sepia(8%) saturate(92%) contrast(97%);
+  position: relative;
+  z-index: 0;
+}
+
+.slideshow-img.fade-out {
+  opacity: 0;
+}
+
+.slideshow-controls {
+  position: absolute;
+  bottom: 2rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  z-index: 2;
+}
+
+.slideshow-controls button {
+  background: rgba(255,240,220,0.1);
+  border: 1px solid rgba(255,240,220,0.12);
+  color: rgba(255,240,220,0.7);
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Lora', serif;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.slideshow-controls button:hover {
+  background: rgba(255,240,220,0.2);
+}
+
+.slideshow-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--terra);
+  transition: width 4s linear;
+  z-index: 2;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 2rem 1rem 3rem;
+  color: var(--text-light);
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.footer .heart { color: var(--terra); }
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px) rotate(0deg); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.polaroid {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* ===== DUST PARTICLES (subtle) ===== */
+@keyframes float-dust {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  20% { opacity: 0.4; }
+  80% { opacity: 0.3; }
+  100% { transform: translateY(-100vh) translateX(30px); opacity: 0; }
+}
+
+.dust {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: rgba(200, 180, 140, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9996;
+  animation: float-dust linear infinite;
+}
+</style>
+</head>
+<body>
+
+<!-- Page warm vignette overlay -->
+<div class="page-vignette"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <h1 class="hero-title">Andi &amp; Gabi</h1>
+  <div class="hero-40">40!</div>
+  <p class="hero-subtitle">&Ouml;r&uuml;l&uuml;nk, hogy vel&uuml;nk &uuml;nnepelsz!<br>Te&scaron;&iacute;me sa, &zcaron;e oslavuje&scaron; s nami!</p>
+  <p class="hero-date">2026. m&aacute;rcius 28. &bull; Gal&aacute;nta, Eszterh&aacute;zy &Eacute;tterem</p>
+
+  <div class="life-counter">
+    <p class="life-counter-label">1986. febru&aacute;r 9. &oacute;ta sz&eacute;p&iacute;tj&uuml;k a vil&aacute;got<br>Od 9. febru&aacute;ra 1986 skr&aacute;&scaron;&#318;ujeme svet</p>
+    <div class="life-counter-grid" id="life-counter">
+      <div class="counter-item"><span class="counter-num" id="lc-years">40</span><span class="counter-unit">&eacute;v</span></div>
+      <div class="counter-item"><span class="counter-num" id="lc-months">1</span><span class="counter-unit">h&oacute;nap</span></div>
+      <div class="counter-item"><span class="counter-num" id="lc-days">17</span><span class="counter-unit">nap</span></div>
+      <div class="counter-item"><span class="counter-num" id="lc-hours">0</span><span class="counter-unit">&oacute;ra</span></div>
+      <div class="counter-item"><span class="counter-num" id="lc-minutes">0</span><span class="counter-unit">perc</span></div>
+      <div class="counter-item"><span class="counter-num" id="lc-seconds">0</span><span class="counter-unit">m&aacute;sodperc</span></div>
+    </div>
+    <p class="life-counter-total" id="lc-total-days"></p>
+  </div>
+</header>
+
+<div class="scallop-divider"></div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <button class="btn-slideshow" onclick="startSlideshow()">
+    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    Diavet&iacute;t&eacute;s
+  </button>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery" id="gallery"></div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span class="heart">&hearts;</span> Eml&eacute;k&uuml;l, hogy eml&eacute;kezz, mikor m&aacute;r csak eml&eacute;k lesz.<br>Na pamiatku, aby si spom&iacute;nal, ke&#271; u&#382; bude len spomienkou. <span class="heart">&hearts;</span>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)">&#8249;</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  <button class="lightbox-nav lightbox-next" onclick="navigateLightbox(1)">&#8250;</button>
+  <div class="lightbox-counter" id="lightbox-counter"></div>
+</div>
+
+<!-- SLIDESHOW -->
+<div class="slideshow-overlay" id="slideshow">
+  <img class="slideshow-img" id="slideshow-img" src="" alt="">
+  <div class="slideshow-progress" id="slideshow-progress"></div>
+  <div class="slideshow-controls">
+    <button onclick="slideshowPrev()">&#8249; El&#337;z&#337;</button>
+    <button onclick="toggleSlideshow()" id="slideshow-toggle">Sz&uuml;net</button>
+    <button onclick="slideshowNext()">K&ouml;vetkez&#337; &#8250;</button>
+    <button onclick="stopSlideshow()">Bez&aacute;r&aacute;s</button>
+  </div>
+</div>
+
+<script>
+const PHOTOS = [
+  "20260327_151334.jpg","20260327_151344.jpg","20260327_151355.jpg","20260327_151402.jpg",
+  "20260327_151411.jpg","20260327_151418.jpg","20260327_151438.jpg","20260327_151446.jpg",
+  "20260327_151500.jpg","20260327_151506.jpg","20260327_151512.jpg","20260327_151536.jpg",
+  "20260327_151544.jpg","20260327_151557.jpg","20260327_151605.jpg","20260327_151611.jpg",
+  "20260327_151616.jpg","20260327_151622.jpg","20260327_151630.jpg","20260327_151637.jpg",
+  "20260327_151643.jpg","20260327_151649.jpg","20260327_151656.jpg","20260327_151703.jpg",
+  "20260327_151717.jpg","20260327_151724.jpg","20260327_151732.jpg","20260327_151741.jpg",
+  "20260327_151748.jpg","20260327_151757.jpg","20260327_151807.jpg","20260327_151815.jpg",
+  "20260327_151824.jpg","20260327_151831.jpg","20260327_151838.jpg","20260327_151849.jpg",
+  "20260327_151858.jpg","20260327_152230.jpg","20260327_152239.jpg","20260327_152255.jpg",
+  "20260327_152302.jpg","20260327_152309.jpg","20260327_152316.jpg","20260327_152321.jpg",
+  "20260327_152328.jpg","20260327_152339.jpg","20260327_152458.jpg","20260327_152510.jpg",
+  "20260327_152517.jpg","20260327_152523.jpg","20260327_152531.jpg","20260327_152613.jpg",
+  "20260327_152628.jpg",
+  "FB_IMG_1774640374377.jpg","FB_IMG_1774640436077.jpg","FB_IMG_1774640494506.jpg","FB_IMG_1774640529577.jpg","FB_IMG_1774640548885.jpg",
+  "IMG-20201225-WA0001.jpg","IMG-20201225-WA0006.jpg","IMG-20210402-WA0004.jpg","IMG-20220107-WA0005.jpg","IMG-20220115-WA0014.jpg",
+  "IMG-20231013-WA0015.jpg","IMG-20231013-WA0021.jpg","IMG-20231013-WA0022.jpg","IMG-20231224-WA0001.jpg","IMG-20241109-WA0003.jpg",
+  "IMG-20250928-WA0061.jpg","IMG-20250928-WA0077.jpg","IMG-20250928-WA0081.jpg","IMG-20250928-WA0082.jpg","IMG-20250928-WA0103(1).jpg",
+  "IMG-20250928-WA0122.jpg","IMG-20250928-WA0138.jpg","IMG-20250928-WA0139.jpg",
+  "Screenshot_20260327_202721_Instagram.jpg","Screenshot_20260327_202743_Instagram.jpg","Screenshot_20260327_202749_Instagram.jpg","Screenshot_20260327_202755_Instagram.jpg",
+  "Screenshot_20260327_203046_Facebook.jpg","Screenshot_20260327_203053_Facebook.jpg","Screenshot_20260327_203101_Facebook.jpg","Screenshot_20260327_203107_Facebook.jpg",
+  "Screenshot_20260327_203116_Facebook.jpg","Screenshot_20260327_203141_Facebook.jpg","Screenshot_20260327_203149_Facebook.jpg","Screenshot_20260327_203158_Facebook.jpg",
+  "Screenshot_20260327_203221_Facebook.jpg","Screenshot_20260327_203329_Facebook.jpg","Screenshot_20260327_203335_Facebook.jpg","Screenshot_20260327_203354_Facebook.jpg",
+  "Screenshot_20260327_204409_Instagram.jpg","Screenshot_20260327_204510_Instagram.jpg","Screenshot_20260327_204553_Instagram.jpg","Screenshot_20260327_204558_Instagram.jpg",
+  "Screenshot_20260327_204609_Instagram.jpg","Screenshot_20260327_204615_Instagram.jpg","Screenshot_20260327_204624_Instagram.jpg","Screenshot_20260327_204631_Instagram.jpg",
+  "Screenshot_20260327_204920_Instagram.jpg","Screenshot_20260327_204928_Instagram.jpg","Screenshot_20260327_204957_Instagram.jpg","Screenshot_20260327_205009_Instagram.jpg",
+  "Screenshot_20260327_205017_Instagram.jpg","Screenshot_20260327_205025_Instagram.jpg","Screenshot_20260327_205033_Instagram.jpg","Screenshot_20260327_205057_Instagram.jpg",
+  "Screenshot_20260327_205103_Instagram.jpg","Screenshot_20260327_205114_Instagram.jpg","Screenshot_20260327_205137_Instagram.jpg",
+  "Screenshot_20260327_205748_Gallery.jpg","Screenshot_20260327_205756_Gallery.jpg","Screenshot_20260327_205806_Gallery.jpg",
+  "FB_IMG_1774640355803.jpg",
+  "IMG-20220107-WA0005(1).jpg","IMG-20220115-WA0014(1).jpg","IMG-20220302-WA0015.jpg","IMG-20220319-WA0019.jpg","IMG-20220403-WA0001.jpg",
+  "IMG-20220418-WA0024.jpg","IMG-20220419-WA0005.jpg","IMG-20220420-WA0004.jpg","IMG-20220612-WA0012.jpg","IMG-20220629-WA0005.jpg",
+  "IMG-20220710-WA0004.jpg","IMG-20220725-WA0004.jpg","IMG-20220726-WA0003.jpg","IMG-20220729-WA0133.jpg","IMG-20220729-WA0135.jpg",
+  "IMG-20220808-WA0001.jpg","IMG-20220822-WA0016.jpg","IMG-20221024-WA0000.jpg","IMG-20221027-WA0000.jpg","IMG-20221201-WA0004.jpg",
+  "IMG-20221225-WA0007.jpg","IMG-20230308-WA0002.jpg","IMG-20230610-WA0003.jpg","IMG-20230727-WA0006.jpg","IMG-20230904-WA0011.jpg",
+  "IMG-20230904-WA0069.jpg","IMG-20230929-WA0000.jpg","IMG-20231023-WA0001.jpg","IMG-20231028-WA0050.jpg","IMG-20231028-WA0081.jpg",
+  "IMG-20231028-WA0088.jpg","IMG-20231111-WA0069.jpg","IMG-20231210-WA0005.jpg","IMG-20240211-WA0009.jpg","IMG-20240309-WA0000.jpg",
+  "IMG-20240402-WA0000.jpg","IMG-20240402-WA0011.jpg","IMG-20240524-WA0004.jpg","IMG-20240524-WA0008.jpg","IMG-20240601-WA0024.jpg",
+  "IMG-20240616-WA0017.jpg","IMG-20240915-WA0109.jpg","IMG-20241007-WA0002.jpg","IMG-20241007-WA0004.jpg","IMG-20250119-WA0006(1).jpg",
+  "IMG-20250210-WA0016.jpg","IMG-20250210-WA0021.jpg","IMG-20250215-WA0021.jpg","IMG-20250615-WA0006(1).jpg","IMG-20250620-WA0006(1).jpg",
+  "IMG-20250621-WA0083.jpg","IMG-20250625-WA0044.jpg","IMG-20250625-WA0045.jpg","IMG-20250704-WA0001.jpg","IMG-20251005-WA0022.jpg",
+  "IMG-20251005-WA0026(1).jpg","IMG-20251005-WA0066.jpg","IMG-20251005-WA0068(1).jpg","IMG-20260103-WA0000.jpg","IMG-20260107-WA0046(1).jpg",
+  "IMG-20260208-WA0010.jpg","IMG-20260216-WA0037.jpg","IMG-20260315-WA0006.jpg","IMG-20260315-WA0009.jpg"
+];
+
+// ===== LIFE COUNTER =====
+const BIRTH = new Date(1986, 1, 9, 0, 0, 0); // 1986. február 9.
+
+function updateLifeCounter() {
+  const now = new Date();
+
+  // Calculate years, months, days
+  let years = now.getFullYear() - BIRTH.getFullYear();
+  let months = now.getMonth() - BIRTH.getMonth();
+  let days = now.getDate() - BIRTH.getDate();
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+  let seconds = now.getSeconds();
+
+  if (days < 0) {
+    months--;
+    const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+    days += prevMonth.getDate();
+  }
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  document.getElementById('lc-years').textContent = years;
+  document.getElementById('lc-months').textContent = months;
+  document.getElementById('lc-days').textContent = days;
+  document.getElementById('lc-hours').textContent = hours;
+  document.getElementById('lc-minutes').textContent = minutes;
+  document.getElementById('lc-seconds').textContent = seconds;
+
+  // Total days
+  const totalMs = now - BIRTH;
+  const totalDays = Math.floor(totalMs / (1000 * 60 * 60 * 24));
+  const totalHours = Math.floor(totalMs / (1000 * 60 * 60));
+  document.getElementById('lc-total-days').innerHTML =
+    `Azaz ${totalDays.toLocaleString('hu-HU')} nap \u00e9s ${totalHours.toLocaleString('hu-HU')} \u00f3ra \u00e9let \u00e9s sz\u00e9ps\u00e9g!<br>To je ${totalDays.toLocaleString('sk-SK')} dn\u00ed a ${totalHours.toLocaleString('sk-SK')} hod\u00edn \u017eivota a kr\u00e1sy!`;
+}
+
+updateLifeCounter();
+setInterval(updateLifeCounter, 1000);
+
+// Seeded random for consistent rotations
+function seededRandom(seed) {
+  let x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+}
+
+// Build gallery
+const gallery = document.getElementById('gallery');
+PHOTOS.forEach((photo, i) => {
+  const card = document.createElement('div');
+  card.className = 'polaroid';
+  const rotation = (seededRandom(i * 7 + 3) - 0.5) * 6; // -3 to +3 degrees
+  card.style.transform = `rotate(${rotation.toFixed(1)}deg)`;
+  card.style.animationDelay = `${i * 0.06}s`;
+  card.onclick = () => openLightbox(i);
+
+  // Photo wrapper for vignette overlay
+  const wrap = document.createElement('div');
+  wrap.className = 'photo-wrap';
+
+  const img = document.createElement('img');
+  img.src = `feldolgozott/${photo}`;
+  img.alt = `Eml\u00e9k #${i + 1}`;
+  img.loading = 'lazy';
+  img.decoding = 'async';
+
+  wrap.appendChild(img);
+  card.appendChild(wrap);
+  gallery.appendChild(card);
+});
+
+// ===== DUST PARTICLES =====
+function createDust() {
+  const count = 12;
+  for (let i = 0; i < count; i++) {
+    const dust = document.createElement('div');
+    dust.className = 'dust';
+    dust.style.left = Math.random() * 100 + 'vw';
+    dust.style.top = (80 + Math.random() * 40) + 'vh';
+    dust.style.animationDuration = (12 + Math.random() * 18) + 's';
+    dust.style.animationDelay = (Math.random() * 15) + 's';
+    dust.style.width = (1 + Math.random() * 2) + 'px';
+    dust.style.height = dust.style.width;
+    document.body.appendChild(dust);
+  }
+}
+createDust();
+
+// ===== LIGHTBOX =====
+let currentIndex = 0;
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxCounter = document.getElementById('lightbox-counter');
+
+function openLightbox(index) {
+  currentIndex = index;
+  updateLightbox();
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function navigateLightbox(dir) {
+  currentIndex = (currentIndex + dir + PHOTOS.length) % PHOTOS.length;
+  updateLightbox();
+}
+
+function updateLightbox() {
+  lightboxImg.src = `feldolgozott/${PHOTOS[currentIndex]}`;
+  lightboxCounter.textContent = `${currentIndex + 1} / ${PHOTOS.length}`;
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (lightbox.classList.contains('active')) {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigateLightbox(-1);
+    if (e.key === 'ArrowRight') navigateLightbox(1);
+  }
+  if (document.getElementById('slideshow').classList.contains('active')) {
+    if (e.key === 'Escape') stopSlideshow();
+    if (e.key === 'ArrowLeft') slideshowPrev();
+    if (e.key === 'ArrowRight') slideshowNext();
+    if (e.key === ' ') { e.preventDefault(); toggleSlideshow(); }
+  }
+});
+
+// Touch/swipe for lightbox
+let touchStartX = 0;
+lightbox.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+lightbox.addEventListener('touchend', (e) => {
+  const diff = e.changedTouches[0].screenX - touchStartX;
+  if (Math.abs(diff) > 50) {
+    navigateLightbox(diff > 0 ? -1 : 1);
+  }
+});
+
+// ===== SLIDESHOW =====
+let slideshowIndex = 0;
+let slideshowTimer = null;
+let slideshowPlaying = true;
+const slideshowEl = document.getElementById('slideshow');
+const slideshowImg = document.getElementById('slideshow-img');
+const slideshowProgress = document.getElementById('slideshow-progress');
+const slideshowToggle = document.getElementById('slideshow-toggle');
+
+function startSlideshow() {
+  slideshowIndex = 0;
+  slideshowPlaying = true;
+  slideshowToggle.innerHTML = 'Sz\u00fcnet';
+  slideshowImg.src = `feldolgozott/${PHOTOS[0]}`;
+  slideshowEl.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  if (slideshowEl.requestFullscreen) {
+    slideshowEl.requestFullscreen().catch(() => {});
+  }
+
+  resetSlideshowTimer();
+}
+
+function stopSlideshow() {
+  clearTimeout(slideshowTimer);
+  slideshowEl.classList.remove('active');
+  document.body.style.overflow = '';
+  slideshowProgress.style.transition = 'none';
+  slideshowProgress.style.width = '0%';
+
+  if (document.fullscreenElement) {
+    document.exitFullscreen().catch(() => {});
+  }
+}
+
+function slideshowNext() {
+  slideshowIndex = (slideshowIndex + 1) % PHOTOS.length;
+  transitionSlide();
+}
+
+function slideshowPrev() {
+  slideshowIndex = (slideshowIndex - 1 + PHOTOS.length) % PHOTOS.length;
+  transitionSlide();
+}
+
+function transitionSlide() {
+  slideshowImg.classList.add('fade-out');
+  setTimeout(() => {
+    slideshowImg.src = `feldolgozott/${PHOTOS[slideshowIndex]}`;
+    slideshowImg.classList.remove('fade-out');
+  }, 400);
+  if (slideshowPlaying) resetSlideshowTimer();
+}
+
+function resetSlideshowTimer() {
+  clearTimeout(slideshowTimer);
+  slideshowProgress.style.transition = 'none';
+  slideshowProgress.style.width = '0%';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      slideshowProgress.style.transition = 'width 4s linear';
+      slideshowProgress.style.width = '100%';
+    });
+  });
+  slideshowTimer = setTimeout(() => slideshowNext(), 4000);
+}
+
+function toggleSlideshow() {
+  slideshowPlaying = !slideshowPlaying;
+  slideshowToggle.innerHTML = slideshowPlaying ? 'Sz\u00fcnet' : 'Lej\u00e1tsz\u00e1s';
+  if (slideshowPlaying) {
+    resetSlideshowTimer();
+  } else {
+    clearTimeout(slideshowTimer);
+    slideshowProgress.style.transition = 'none';
+    slideshowProgress.style.width = slideshowProgress.style.width;
+  }
+}
+
+// Touch/swipe for slideshow
+slideshowEl.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+slideshowEl.addEventListener('touchend', (e) => {
+  const diff = e.changedTouches[0].screenX - touchStartX;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) slideshowPrev(); else slideshowNext();
+  }
+});
+</script>
+</body>
+</html>
